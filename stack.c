@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * staack - stack function
+ * fstack - stack function
  * @stack: stack pointer
  * @line_number: line number
  * Return: void

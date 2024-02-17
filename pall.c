@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * fpall - prints all the values on the stack, starting from the top of the stack
+ * fpall - prints all the values on the stack
  * @head: head of stack
  * @line_number: line number
  * Return: void

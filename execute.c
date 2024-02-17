@@ -14,29 +14,35 @@ int execute(char *value, stack_t **stack, unsigned int count, FILE *file)
 	instruction_t son[] = {{"push", fpush}, {"pall", fpall}, {NULL, NULL}};
 
 	unsigned int i = 0;
+	size_t c = 0;
 
-	char *op;
+
+	char *op, *ops[2];
 
 	op = strtok(value, " \n\t");
-	if (op && op[0] == '#')
-		return (0);
-	mine.arg = strtok(NULL, " \n\t");
-	while (son[i].opcode && op)
+	while (op != NULL)
 	{
-		if (strcmp(op, son[i].opcode) == 0)
+		ops[c++] = op;
+		op = strtok(NULL, " \n\t");
+	}
+	mine.arg = ops[0];
+	mine.arg2 = ops[1];
+	while (son[i].opcode && ops[0])
+	{
+		if (strcmp(son[i].opcode, ops[0]) == 0)
 		{
 			son[i].f(stack, count);
 			return (0);
 		}
 		i++;
 	}
-	if (op && son[i].opcode == NULL)
+	if (ops[0] && son[i].opcode == NULL)
 	{
-		fprintf(stderr, "L%d: unknown %s\n", count, op);
+		fprintf(stderr, "L%u: ", i);
 		fclose(file);
 		free(value);
 		freestack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	return (1);
+	return (0);
 }

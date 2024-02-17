@@ -35,6 +35,7 @@ typedef struct stack_s
 typedef struct mine_s
 {
 	char *arg;
+	char *arg2;
 	FILE *file;
 	char *value;
 	int LIFI;
@@ -62,4 +63,5 @@ void fpall(stack_t **head, unsigned int line_number);
 void freestack(stack_t *head);
 int execute(char *value, stack_t **stack, unsigned int count, FILE *file);
 void fstack(stack_t **stack, unsigned int line_number);
+char *token(char *argv, unsigned int Lcount);
 #endif

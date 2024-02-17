@@ -22,10 +22,9 @@ void addn(stack_t **head, int n)
 	if (tem)
 	{
 		tem->prev = node;
-		node->n = n;
-		node->next = *head;
-		node->prev = NULL;
-		*head = node;
 	}
+	node->n = n;
+	node->next = *head;
+	node->prev = NULL;
+	*head = node;
 }
-

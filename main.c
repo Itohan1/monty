@@ -1,6 +1,5 @@
 #include "monty.h"
-
-char *value[113];
+mine_t mine = {NULL, NULL, NULL, NULL, 0};
 
 /**
  * main - main function
@@ -11,9 +10,9 @@ char *value[113];
 
 int main(int argc, char *argv[])
 {
-	char *value;
+	char value[1032];
 	FILE *file;
-	ssize_t read = 1;
+	char *read;
 	stack_t *stack = NULL;
 	unsigned int count = 0;
 
@@ -29,24 +28,11 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: can't open file\n");
 		exit(EXIT_FAILURE);
 	}
-	while (read > 0)
+	while ((read = fgets(value, sizeof(value), file)) != NULL)
 	{
-		value = NULL;
-		if (fgets(value, sizeof(value), stdin) != NULL)
-		{
-			printf("%s\n", value);
-		}
-		else
-		{
-			printf("Error\n");
-		}
 		mine.value = value;
 		count++;
-		if (read > 0)
-		{
-			execute(value, &stack, count, file);
-		}
-		free(value);
+		execute(value, &stack, count, file);
 	}
 	freestack(stack);
 	fclose(file);

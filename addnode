@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node_t 
+{
+	struct node_t *next;
+	int n;
+}node;
+
+node *addnode(node **head, int value)
+{
+	node *current;
+	current	= *head;
+	node *newnode;
+	newnode = malloc(sizeof(node));
+
+	newnode->n = value;
+
+	if (*head == NULL)
+	{
+		*head = newnode;
+		newnode->next = NULL;
+		return (newnode);
+	}
+
+	*head = newnode;
+	newnode->next = current;
+	return (newnode);
+}	
+
+node *insertnode(node **head, int value, int x)
+{
+	node *current;
+	current = *head;
+	node *newnode;
+	newnode = malloc(sizeof(node));
+	int i;
+	node  *prev;
+
+	newnode->n = value;
+
+	if (x == 0)
+	{
+		*head = newnode;
+		newnode->next = current;
+		return (newnode);
+	}
+
+	while (current)
+	{
+		current = current->next;
+		i++;
+
+		if (i == x)
+		{
+			prev = current;
+			prev->next = newnode;
+			newnode->next = current;
+			break;
+		}
+		prev = current;
+	}
+	return (newnode);
+}
+
+int main()
+{
+	node *head;
+
+	head = NULL;
+	addnode(&head, 23);
+	addnode(&head, 24);
+	addnode(&head, 25);
+	addnode(&head, 26);
+	addnode(&head, 27);
+	/*insertnode(&head, 100, 2);*/
+
+	while (head)
+	{
+		printf("%d\n", head->next->n);
+		head = head->next;
+	}
+}
